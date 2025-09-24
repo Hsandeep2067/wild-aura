@@ -58,7 +58,8 @@ wild-aura/
 10. **Smooth Scrolling Navigation** - Enhanced user experience with anchor links
 11. **Animated Elements** - Scroll-triggered animations for visual appeal
 12. **Enhanced Hero Section** - Advanced visual effects and interactions
-13. **SEO-Friendly Structure** - Proper semantic HTML markup
+13. **Image Zoom Feature** - Click to zoom functionality for all images
+14. **SEO-Friendly Structure** - Proper semantic HTML markup
 
 ## Enhanced Hero Section Features
 
@@ -99,6 +100,19 @@ wild-aura/
    - Consistent styling with hover effects
    - Responsive grid layout
    - Proper alt text for accessibility
+
+## Image Zoom Feature
+
+1. **Click-to-Zoom Functionality**:
+   - Click any image to view it in full size
+   - Dark overlay background for focus
+   - Close with button, click outside, or Escape key
+   - Image captions displayed below zoomed images
+
+2. **User Experience**:
+   - Smooth transitions and animations
+   - Responsive design for all screen sizes
+   - Intuitive controls and navigation
 
 ## AI Cat & Animal Art Gallery Features
 

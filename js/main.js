@@ -37,11 +37,71 @@ if (contactForm) {
     });
 }
 
-// Simple image gallery functionality
-document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', function() {
-        // In a real implementation, you would show a modal with the full-size image
-        alert('In a full implementation, this would show the full-size image in a modal.');
+// Image Zoom Feature
+document.addEventListener('DOMContentLoaded', function() {
+    // Create zoom overlay element
+    const zoomOverlay = document.createElement('div');
+    zoomOverlay.className = 'image-zoom-overlay';
+    zoomOverlay.innerHTML = `
+        <div class="image-zoom-container">
+            <button class="image-zoom-close">&times;</button>
+            <img src="" alt="Zoomed Image">
+            <div class="image-zoom-caption"></div>
+        </div>
+    `;
+    document.body.appendChild(zoomOverlay);
+    
+    // Get zoom elements
+    const zoomImg = zoomOverlay.querySelector('img');
+    const zoomCaption = zoomOverlay.querySelector('.image-zoom-caption');
+    const zoomClose = zoomOverlay.querySelector('.image-zoom-close');
+    
+    // Add click event to specific images (gallery, featured, and about images)
+    // We'll target images in the gallery, featured, and about sections specifically
+    const zoomableImages = document.querySelectorAll(
+        '.gallery-item img, .featured-item img, .about-image img'
+    );
+    
+    zoomableImages.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function(e) {
+            console.log('Zoomable image clicked:', this.src);
+            // Prevent any other click handlers from executing
+            e.preventDefault();
+            e.stopPropagation();
+            // Also stop immediate propagation to prevent other listeners on the same element
+            e.stopImmediatePropagation();
+            
+            const src = this.src;
+            const alt = this.alt;
+            
+            zoomImg.src = src;
+            zoomCaption.textContent = alt;
+            zoomOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // Close zoom overlay
+    zoomClose.addEventListener('click', function() {
+        zoomOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    // Close zoom overlay when clicking outside the image
+    zoomOverlay.addEventListener('click', function(e) {
+        if (e.target === zoomOverlay) {
+            zoomOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close zoom overlay with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && zoomOverlay.classList.contains('active')) {
+            zoomOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 });
 
