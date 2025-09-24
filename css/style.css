@@ -60,6 +60,34 @@ header .container {
     -webkit-text-fill-color: transparent;
 }
 
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #00ccff;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
 nav ul {
     display: flex;
     list-style: none;
@@ -101,10 +129,10 @@ nav ul li a:hover::after {
 .hero {
     background: 
         linear-gradient(rgba(10, 10, 25, 0.4), rgba(10, 10, 25, 0.4)),
-        radial-gradient(circle at center, rgba(0, 100, 200, 0.15) 0%, transparent -5000%),
         url('../assets/hero.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -797,44 +825,86 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    nav ul {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        flex-direction: column;
+        background-color: rgba(10, 10, 25, 0.95);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        z-index: 999;
+    }
+    
+    nav ul.active {
+        left: 0;
+    }
+    
+    nav ul li {
+        margin: 15px 0;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+        padding: 10px;
+    }
+    
+    .hero-logo-img {
+        height: 80px;
+    }
+    
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 15px;
     }
     
     .hero p {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        padding: 0 10px;
     }
     
     .cta-buttons {
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        margin-top: 20px;
     }
     
-    nav ul {
-        flex-direction: column;
-        background-color: rgba(10, 10, 25, 0.95);
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        padding: 20px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-        transition: clip-path 0.3s;
-        border-top: 1px solid rgba(0, 150, 255, 0.3);
-    }
-    
-    nav ul.active {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-    
-    nav ul li {
-        margin: 10px 0;
+    .btn {
+        padding: 12px 25px;
+        font-size: 0.9rem;
     }
     
     .short-item iframe {
         height: 250px;
+    }
+    
+    /* Enhanced Hero Section for Mobile */
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+    }
+    
+    .hero-logo-img {
+        height: 70px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.8rem;
     }
 }
 

@@ -1,6 +1,38 @@
 // Mobile Navigation Toggle
 const mobileNav = document.querySelector('nav ul');
+const menuToggle = document.querySelector('.menu-toggle');
+
+// Toggle mobile menu
+if (menuToggle) {
+    menuToggle.addEventListener('click', function() {
+        mobileNav.classList.toggle('active');
+        
+        // Hamburger animation
+        this.classList.toggle('active');
+    });
+}
+
+// Close mobile menu when clicking on a link
 const navLinks = document.querySelectorAll('nav ul li a');
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        mobileNav.classList.remove('active');
+        menuToggle.classList.remove('active');
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const isClickInsideNav = mobileNav.contains(event.target);
+    const isClickInsideMenuToggle = menuToggle && menuToggle.contains(event.target);
+    
+    if (!isClickInsideNav && !isClickInsideMenuToggle && mobileNav.classList.contains('active')) {
+        mobileNav.classList.remove('active');
+        if (menuToggle) {
+            menuToggle.classList.remove('active');
+        }
+    }
+});
 
 // Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -172,8 +204,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', () => {
             const scrollPosition = window.scrollY;
             if (scrollPosition < window.innerHeight) {
+                // Only modify the transform scale, not the background size
                 const scaleValue = 1 + (scrollPosition / window.innerHeight) * 0.1;
-                hero.style.backgroundSize = `${scaleValue * 100}%`;
+                hero.style.transform = `scale(${scaleValue})`;
             }
         });
     }
